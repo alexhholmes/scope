@@ -3,7 +3,7 @@ use inkwell::OptimizationLevel;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let context = Context::create();
-    let module = context.create_module("scope");
+    let module = context.create_module("jit");
     let builder = context.create_builder();
 
     let i64_type = context.i64_type();
@@ -40,6 +40,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         result = compiled_fn.call(5, 3);
     }
 
+    println!("func def foo(x, y) {{ x + y * 2 }}");
+    println!("foo(5, 3)");
     println!("Result: {}", result);
 
     Ok(())
