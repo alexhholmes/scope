@@ -32,13 +32,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let execution_engine = module.create_jit_execution_engine(OptimizationLevel::None)?;
 
-    let result: i64;
-    unsafe {
+    let result = unsafe {
         let compiled_fn = execution_engine
             .get_function::<unsafe extern "C" fn(i64, i64) -> i64>("foo")?;
 
-        result = compiled_fn.call(5, 3);
-    }
+        compiled_fn.call(5, 3)
+    };
 
     println!("func def foo(x, y) {{ x + y * 2 }}");
     println!("foo(5, 3)");
